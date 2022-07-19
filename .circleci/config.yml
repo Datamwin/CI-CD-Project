@@ -70,12 +70,13 @@ jobs:
           paths: [backend/node_modules]
           key: backend-build
   
-  workflows:
-    build_workflow:
-      jobs:
-        - build-frontend
-        - build-backend:
-            requires: build-frontend    
+workflows:
+  build_workflow:
+    jobs:
+      - build-frontend
+      - build-backend:
+          requires:
+            - build-frontend    
 
 #   test-frontend:
 #     docker:
