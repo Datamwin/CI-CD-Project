@@ -96,7 +96,7 @@ jobs:
       - restore_cache:
          keys: [test-backend]
       - run:
-          name: Run frontend test
+          name: Run backend test
           command:
             cd frontend
             npm install
