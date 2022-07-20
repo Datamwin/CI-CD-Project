@@ -141,7 +141,7 @@ workflows:
   build_workflow:
     jobs:
       - build-frontend:
-          context: slack-secrets
+          context: xoxb-3403002442500-3818616044946-rXvfi3Dh3FY2XKcn2mqsuD9n
       - build-backend
       - test-frontend:
           requires:
