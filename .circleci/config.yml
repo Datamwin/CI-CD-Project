@@ -1,18 +1,19 @@
 version: 2.1
-orbs: 
-  slack: circleci/slack@4.10.1
+
 commands:
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
     parameters:
-      # Add parameter here   
+      # Add parameter here
+      id:
+        type: string   
     steps:
       - run:
           name: Destroy environments
           when: on_fail
           command: |
-            # Your code here
-            exit 1
+            aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.id >>
+
             
 
   revert-migrations:
@@ -132,26 +133,6 @@ jobs:
             cd backend
             npm install
             npm audit fix --audit-level=critical --force
-
-workflows:
-  build_workflow:
-    jobs:
-      - build-frontend
-      - build-backend
-      - test-frontend:
-          requires:
-            - build-frontend
-      - test-backend:
-          requires:
-            - build-backend
-      - scan-frontend:
-          requires:
-            - build-frontend
-      - scan-backend:
-          requires:
-            - build-backend
-
-
 
   deploy-infrastructure:
     docker:
@@ -360,3 +341,26 @@ workflows:
 #           requires: [smoke-test]
 #       - cleanup:
 #           requires: [cloudfront-update]
+workflows:
+  build_workflow:
+    jobs:
+      - build-frontend
+      - build-backend
+      - test-frontend:
+          requires:
+            - build-frontend
+      - test-backend:
+          requires:
+            - build-backend
+      - scan-frontend:
+          requires:
+            - build-frontend
+      - scan-backend:
+          requires:
+            - build-backend
+
+      - deploy-infrastructure:
+          requires: [test-frontend, test-backend, scan-frontend, scan-backend]
+          filters:
+            branches:
+              only: [test-feature-branch]    
