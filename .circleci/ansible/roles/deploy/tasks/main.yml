@@ -1,8 +1,8 @@
 ---
 - name: "backend app directory"
   file:
-  path: ~/backend-app
-  state: directory
+    path: ~/backend-app
+    state: directory
 - name: "unarchive backend files"
   unarchive:
     src: /root/project/artifact.tar.gz
