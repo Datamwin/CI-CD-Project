@@ -351,8 +351,12 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            apk add --update --no-cache tar gzip nodejs npm aws-cli curl
-
+            #apk add --update --no-cache tar gzip nodejs npm aws-cli curl
+            apk add --update tar
+            apk add --update gzip
+            pip install awscli
+            apk add --update ansible 
+S
       - run:
           name: Get backend url
           command: |
