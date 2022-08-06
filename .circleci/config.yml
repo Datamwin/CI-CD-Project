@@ -356,7 +356,6 @@ jobs:
             apk add --update gzip
             pip install awscli
             apk add --update ansible 
-S
       - run:
           name: Get backend url
           command: |
