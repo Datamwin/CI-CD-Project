@@ -367,7 +367,7 @@ jobs:
             cd ..
             # Zip the directory
             tar -C backend -czvf artifact.tar.gz .
-            
+
             export TYPEORM_MIGRATIONS_DIR=./migrations
             export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
             export TYPEORM_MIGRATIONS=./migrations/*.ts
@@ -394,8 +394,8 @@ jobs:
           name: Install dependencies
           command: |
             # your code here
-            apk add --update tar
-            apk add --update gzip
+            #apk add --update tar
+            #apk add --update gzip
             #pip install awscli
             #apk add --update ansible 
       #- run:
