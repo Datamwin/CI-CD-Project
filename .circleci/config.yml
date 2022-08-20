@@ -251,7 +251,7 @@ jobs:
   run-migrations:
     docker:
       # Docker image here that supports NodeJS
-      - image: cimg/node:15.0.1
+      - image: circleci/node:13.8.0 #cimg/node:15.0.1
     steps:
       - checkout
       - restore_cache:
@@ -260,7 +260,7 @@ jobs:
           name: Run migrations
           command: |
             cd backend
-            sudo npm install
+            sudo npm install -g npm
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt 
       - run:
