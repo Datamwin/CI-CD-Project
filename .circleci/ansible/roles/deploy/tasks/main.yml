@@ -1,22 +1,26 @@
 ---
 - name: "backend app directory"
   file:
-    path: ~/backend-app
+    path: home/ubuntu/backend-app
     state: directory
+
 - name: "unarchive backend files"
   unarchive:
     src: /root/project/artifact.tar.gz
-    dest: ~/backend-app
+    dest: home/ubuntu/backend-app
 - name: "Installing Node dependencies"
   shell: | 
     cd ~/backend-app
     ls
-    npm i
+    #npm i
+    sudo apt install -y nodejs
+    sudo npm install -g n
+
 - name: "Executing Node app with PM2"
   shell: |
-    cd ~/backend-app/dist
-    pm2 stop default:
-    pm2 start main.js
+    cd home/ubuntu/backend-app 
+    pm2 stop all
+    pm2 start npm --start
   register: execute_node
 - name: message
   debug:
