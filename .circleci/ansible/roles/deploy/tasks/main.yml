@@ -4,33 +4,52 @@
     path: home/ubuntu/backend-app
     state: directory
 
+- name: "Install dependencies"
+  become: true
+  shell: |
+    cd ~/backend-app
+    sudo yum install -y gcc-c++ make 
+    curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash - 
+    sudo yum install -y nodejs npm
+
 - name: "unarchive backend files"
   unarchive:
     src: /root/project/artifact.tar.gz
     dest: home/ubuntu/backend-app
-- name: "Installing Node dependencies"
-  shell: | 
-    cd ~/backend-app
-    ls
-    #npm i
-    sudo apt install -y nodejs
-    sudo npm install -g n
+
+
+
+# - name: "Installing Node dependencies"
+#   shell: | 
+#     cd ~/backend-app
+#     ls
+#     #npm i
+#     sudo apt install -y nodejs
+#     sudo npm install -g n
 
 - name: "Executing Node app with PM2"
   shell: |
     cd home/ubuntu/backend-app 
-    pm2 stop all
-    pm2 start npm --start
-  register: execute_node
-- name: message
-  debug:
-    msg: "{{execute_node.stdout_lines}}"
+    sudo npm i @nestjs/common@6.11.11
+    sudo npm i @nestjs/core@6.11.11
+    sudo npm i @nestjs/swagger@3.1.0
+    sudo npm i @nestjs/platform-express@6.11.11
+    sudo npm install pm2 -g
+    sudo npm install --legacy-peer-deps
+    sudo pm2 stop default
+    sudo pm2 start npm -- run start
+    sudo pm2 link zv5d0885y1ovrc1 rmm2h4dxo57hcvt
+  # register: execute_node
 
-- name: "Configure pm2 to start as aservice"
-  become: true
-  shell: |
-    sudo su -c "env PATH=$PATH:usr/local/bin pm2 startup system -u ubuntu --hp /home/ubuntu"
-    pm2 save
+# - name: message
+#   debug:
+#     msg: "{{execute_node.stdout_lines}}"
+
+# - name: "Configure pm2 to start as aservice"
+#   become: true
+#   shell: |
+#     sudo su -c "env PATH=$PATH:usr/local/bin pm2 startup system -u ubuntu --hp /home/ubuntu"
+#     pm2 save
 
 
 

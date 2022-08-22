@@ -14,7 +14,7 @@
   become: true
   apt:
     name: ["nodejs", "npm"]
-    state: present
+    state: latest
     update_cache: yes
 
 - name: "install pm2"
@@ -23,5 +23,10 @@
     name: pm2
     global: yes
     production: yes
-    state: present
-
+    state: latest
+- name: "Install Python"
+  become: true
+  apt:
+    name:  python
+    state: latest
+    update_cache: yes
