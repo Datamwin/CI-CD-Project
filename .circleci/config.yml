@@ -225,7 +225,9 @@ jobs:
     docker:
       - image: python:3.7-alpine3.11
     steps:
-      -  checkout
+      - checkout
+      - install_awscli
+      - install_ansible
       - add_ssh_keys:
           fingerprints: [91:27:45:6c:bc:80:8b:ff:1c:02:df:aa:69:f2:ed:a0]
       - attach_workspace:
@@ -235,8 +237,9 @@ jobs:
           command: |
             apk add --update tar
             apk add --update gzip
-            pip install awscli
-            apk add --update ansible 
+            apk add python curl
+            #pip install awscli
+            #apk add --update ansible 
       - run:
           name: Configure server
           command: |
@@ -361,7 +364,7 @@ jobs:
 
             #npm install
             #apk add --update tar gzip
-            #apk add --update openssh-server
+            
       - run:
           name: Deploy backend
           command: |
