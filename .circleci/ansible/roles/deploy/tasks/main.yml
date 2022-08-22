@@ -8,9 +8,14 @@
   become: true
   shell: |
     cd ~/backend-app
-    sudo yum install -y gcc-c++ make 
-    curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash - 
-    sudo yum install -y nodejs npm
+    # sudo yum install -y gcc-c++ make 
+    # curl -sL https://rpm.nodesource.com/setup_10.x | sudo -E bash - 
+    # sudo yum install -y nodejs npm
+
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt install -y nodejs
+    sudo npm install -g n
+    sudo n 13.8.0
 
 - name: "unarchive backend files"
   unarchive:
