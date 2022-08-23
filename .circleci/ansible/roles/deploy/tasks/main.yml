@@ -25,8 +25,8 @@
 - name: extract artifact
   become: true
   unarchive:
-    src: files/artifact.tar.gz
-    dest: .
+    src: ~project/artifact.tar.gz
+    dest: home/ubuntu/backend-app/artifact.tar.gz
 
 
 # - name: "Installing Node dependencies"
