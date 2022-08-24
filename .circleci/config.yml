@@ -11,7 +11,7 @@ commands:
          
     steps:
       - run:
-          name: Destroy backend
+          name: Destroy environment ${CIRCLE_WORKFLOW_ID:0:7}
           when: on_fail
           command: |
             #aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.id >>
@@ -45,8 +45,9 @@ commands:
           when: on_fail
           command: |
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-             
-            SUCCESS = $(curl --insecure  https://kvdb.io/ YLFopcbut3GscoH7bgoJnc/migration_${CIRCLE_WORKFLOW_ID:0:7})
+            #curl -v --insecure https://kvdb.io/YLFopcbut3GscoH7bgoJnc/migration_${CIRCLE_WORKFLOW_ID:0:7}
+
+            SUCCESS = $(curl --insecure https://kvdb.io/ YLFopcbut3GscoH7bgoJnc/migration_${CIRCLE_WORKFLOW_ID:0:7})
             if(( $SUCCESS==1 )); 
             then
               cd ~/project/backend
