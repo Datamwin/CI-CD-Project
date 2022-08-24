@@ -1,2 +1,12 @@
 URLO1
 https://github.com/Datamwin/CI-CD-Project
+
+URL02
+S3 bucket url 
+http://udapeople-48a5361.s3-website-us-east-1.amazonaws.com
+
+URL03
+https://d2cn83a4wuwoe2.cloudfront.net
+
+URL04
+http://35.174.115.186:3030/api/status
