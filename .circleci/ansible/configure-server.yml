@@ -40,4 +40,4 @@
   roles:
     # Your code here
     - configure-server
-    - configure-prometheus-node-exporte
+    - configure-prometheus-node-exporter
