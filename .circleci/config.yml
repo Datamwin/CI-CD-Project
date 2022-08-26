@@ -509,7 +509,7 @@ jobs:
             command: |
               cat old_stack.txt
               export OldWorkflowID=(cat old_stack.txt)
-              if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
+              if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" ]]
               then
                 # your code here
                 echo "deleting old stack ${OldWorkflowID}"
@@ -555,6 +555,6 @@ workflows:
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
-          requires: [smoke-test]
+          requires: [cleanup]
       - cleanup:
-          requires: [cloudfront-update]    
+          requires: [smoke-test]    
