@@ -506,7 +506,7 @@ jobs:
             name: Remove old stacks and files
             command: |
               cat old_stack.txt
-              export OldWorkflowID  = cat old_stack.txt
+              export OldWorkflowID=(cat old_stack.txt)
               if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
               then
                 # your code here
