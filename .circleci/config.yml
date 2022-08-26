@@ -250,7 +250,7 @@ jobs:
           command: |
             apk add --update tar
             apk add --update gzip
-            apk add python curl
+            apk add python3 curl
             pip install awscli
             apk add --update ansible 
       - run:
