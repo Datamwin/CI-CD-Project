@@ -10,19 +10,13 @@
   apt:
     upgrade: yes
 
-- name: "install nodejs, npm"
+
+- name: "install dependencies"
   become: true
   apt:
     name: ["nodejs", "npm"]
-    state: latest
-    #update_cache: yes
-
-# - name: "install dependencies"
-#   become: true
-#   apt:
-#     name: ["nodejs", "npm"]
-#     state: present
-#     update_cache: yes
+    state: present
+    update_cache: yes
 
 - name: "install pm2"
   become: true
