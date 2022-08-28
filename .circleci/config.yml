@@ -521,10 +521,7 @@ jobs:
               --stack-status-filter CREATE_COMPLETE --no-paginate --output text)) 
               echo Stack names: "${STACKS[@]}" 
 
-        - run:
-            name: Remove old stacks and files
-            command: |
-              #echo "${OldWorkflowID}"> old_stack.txt
+        
               if [[ "${CIRCLE_WORKFLOW_ID:0:7}" =~ "${OldWorkflowID}" ]]
               then
                 # your code here
@@ -539,8 +536,12 @@ jobs:
                    
                  
             
-              #cat old_stack.txt
-              #export OldWorkflowID="${cat old_stack.txt}"
+          #cat old_stack.txt
+          #export OldWorkflowID="${cat old_stack.txt}"
+          # - run:
+          #   name: Remove old stacks and files
+          #   command: |
+          #     #echo "${OldWorkflowID}"> old_stack.txt
               
 
 workflows:
