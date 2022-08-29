@@ -18,19 +18,7 @@ commands:
             echo "Destroying environment: << parameters.id >> "
             aws cloudformation delete-stack --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws s3 rm s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
-            aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}
-
-
-      # - run:
-      #     name: Destroy frontend
-      #     when: on_fail
-      #     command: |
-      #         aws s3 rm s3://udapeople-<<parameters.id>>--recursive
-      #         #aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.id >>
-              
-          
-
-            
+            aws cloudformation delete-stack --stack-name udapeople-frontend-${CIRCLE_WORKFLOW_ID:0:7}                       
 
   revert-migrations:
     description: Revert the last migration if successfully run in the current workflow.
@@ -47,15 +35,6 @@ commands:
             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
             #curl -v --insecure https://kvdb.io/YLFopcbut3GscoH7bgoJnc/migration_${CIRCLE_WORKFLOW_ID:0:7}
 
-            # SUCCESS = $(curl --insecure https://kvdb.io/ YLFopcbut3GscoH7bgoJnc/migration_${CIRCLE_WORKFLOW_ID:0:7})
-            # if(( $SUCCESS==1 )); 
-            # then
-            #   cd ~/project/backend
-            #   npm install
-            #   npm run migration:revert
-            # #  Add revert code here. You can find this in the Getting Started section.
-            #   # exit 1
-            # fi
             SUCCESS=$(curl --insecure  https://kvdb.io/YLFopcbut3GscoH7bgoJnc/migration_<<parameters.id>>)
             if(( $SUCCESS==1 )); 
             then
@@ -128,8 +107,6 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-build
-  
-    
 
   test-frontend:
     docker:
@@ -235,8 +212,7 @@ jobs:
       - destroy-environment:
           id: ${CIRCLE_WORKFLOW_ID:0:7}
       # Here's where you will add some code to rollback on failure 
-      #python:3.7-alpine3.11     
-
+ 
   configure-infrastructure:
     docker:
       - image: python:3.7-alpine3.11 
@@ -330,13 +306,7 @@ jobs:
             apk add --update ansible
             apk add --update --no-cache tar gzip nodejs npm aws-cli curl 
 
-            #npm install
-            #pip install awscli
-            # apk add --update tar
-            # apk add --update gzip
-            # apk add --nodejs
-            
-            
+
       - run:
           name: Get backend url
           command: |
@@ -374,9 +344,6 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
-      # - install_awscli
-      # - install_ansible
-      # - install_nodejs
       # Add ssh keys with fingerprint
       - add_ssh_keys:
           fingerprints: [91:27:45:6c:bc:80:8b:ff:1c:02:df:aa:69:f2:ed:a0]
@@ -566,6 +533,6 @@ workflows:
       - smoke-test:
           requires: [deploy-backend, deploy-frontend]
       - cloudfront-update:
-          requires: [cleanup]
+          requires: [smoke-test]
       - cleanup:
-          requires: [smoke-test]    
+          requires: [cloudfront-update]    
