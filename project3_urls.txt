@@ -3,10 +3,11 @@ https://github.com/Datamwin/CI-CD-Project
 
 URL02
 S3 bucket url 
-http://udapeople-48a5361.s3-website-us-east-1.amazonaws.com
+http://udapeople-000f14f.s3-website-us-east-1.amazonaws.com
 
 URL03
-https://d2cn83a4wuwoe2.cloudfront.net
+cloudfront url 
+https://d1uzbxembnymnz.cloudfront.net
 
 URL04
 http://35.174.115.186:3030/api/status
